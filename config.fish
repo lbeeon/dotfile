@@ -31,6 +31,8 @@ set tacklebox_theme entropy
 #. $HOME/.fishmarks/marks.fish
 
 alias vi "nvim"
+alias node "node --harmony-async-await"
+
 
 # function vi
 #   nvim $argv
@@ -74,7 +76,7 @@ function bump
 	echo 'Set new version to : '$input_string
 	echo $input_string > VERSION
 	git add VERSION
-	git commit -m "Version bump to $input_string"
+	git commit -S -m "Version bump to $input_string"
 	git tag -a -m "Tagging version $input_string" "v$input_string"
 	git push origin --tags
 end
