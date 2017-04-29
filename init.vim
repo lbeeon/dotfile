@@ -41,16 +41,18 @@
   " Theme
   " Plug 'pangloss/vim-javascript'
 
-  Plug 'rakr/vim-one'
+  " Plug 'rakr/vim-one'
+  Plug 'gosukiwi/vim-atom-dark'
+  " Plug 'ayu-theme/ayu-vim'
 
   Plug 'anyakichi/vim-surround'
 
   Plug 'majutsushi/tagbar'
 
   Plug 'tpope/vim-commentary'
-  Plug 'vim-syntastic/syntastic'
+  " Plug 'vim-syntastic/syntastic'
 
-  " Plug 'https://github.com/w0rp/ale.git'
+  Plug 'https://github.com/lbeeon/ale.git'
   " Plug 'w0rp/ale'
   " Add plugins to &runtimepath
   call plug#end()
@@ -99,7 +101,7 @@
   syntax on
   set t_Co=256
   set background=dark
-  colorscheme one
+  colorscheme atom-dark
   " Use 256 colours (Use this setting only if your terminal supports 256  colours)
   " Always show statusline
   set laststatus=2
@@ -138,20 +140,20 @@
 " }}}
 
 " airline {{{
-  " call airline#parts#define_function('ALE', 'ALEGetStatusLine')
-  " call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
+  call airline#parts#define_function('ALE', 'ALEGetStatusLine')
+  call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
   " let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-  " let g:airline_section_error = airline#section#create_right(['ALE'])
+  let g:airline_section_error = airline#section#create_right(['ALE'])
   " let g:airline_section_error = '%{exists("ALEGetStatusLine") ? ALEGetStatusLine() : ""}'
   set statusline+=%#warningmsg#
-  set statusline+=%{SyntasticStatuslineFlag()}
+  " set statusline+=%{SyntasticStatuslineFlag()}
   set statusline+=%*
-  " set statusline+=%{ALEGetStatusLine()}
+  set statusline+=%{ALEGetStatusLine()}
 
 " }}}
 
 
-let g:ale_keep_list_window_open = 1
+" let g:ale_keep_list_window_open = 1
 
 
 " let g:syntastic_javascript_checkers = ['standard']
@@ -175,10 +177,10 @@ set autoread
   au Filetype go nnoremap gv :GoDef <CR>
   au Filetype go nnoremap gs :sp <CR>:exe "GoDef"<CR>
   au Filetype go nnoremap gt :tab split <CR>:exe "GoDef"<CR>
-  " let g:ale_linters = {
-  " \   'go': ['gofmt', 'gometalinter'],
-  " \}
-" , 'golint', 'go vet', 'staticcheck', 'go build'
+  let g:ale_linters = {
+  \   'go': ['go build', 'gofmt', 'go vet', 'staticcheck'],
+  \}
+  "['go build', 'gofmt', 'golint', 'gometalinter', 'gosimple', 'go vet', 'staticcheck']
   " 1. variables are all defined in current scope, use keyword from current
   " buffer for completion `<C-x><C-n>`
   " 2. When the '.' is pressed, use smarter omnicomplete `<C-x><C-o>`, this
