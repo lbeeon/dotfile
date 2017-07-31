@@ -95,7 +95,7 @@
   noremap <silent><Leader><TAB> :<C-U>call ExpendTerm()<CR>
   noremap <silent><Leader><ESC> :<C-U>call ExpendTerm()<CR>
   function! ExpendTerm()
-    exe "normal \<C-W>100j"
+    exe "normal \<C-W>100l\<C-W>j00l"
     let termTest = matchstr(@%, 'term:\/\/')
     if empty(termTest)
       exec "normal \<C-W>100h:call g:NERDTreeKeyMap.Invoke(\"P\")\<CR>:call g:NERDTreeKeyMap.Invoke(\"cd\")\<CR>\<C-W>100l:split term:\/\/fish\<CR>:resize 30\<CR>i"
