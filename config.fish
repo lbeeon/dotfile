@@ -1,12 +1,12 @@
 set -g -x PATH /usr/local/bin $PATH
-set -x PATH /usr/local/opt/gnupg/libexec/gpgbin $PATH
-
-begin
-    set --local AUTOJUMP_PATH $HOME/.autojump/share/autojump/autojump.fish
-    if test -e $AUTOJUMP_PATH
-        source $AUTOJUMP_PATH
-    end
-end
+# set -x PATH /usr/local/opt/gnupg/libexec/gpgbin $PATH
+if test -f /Users/ben/.autojump/share/autojump/autojump.fish; . /Users/ben/.autojump/share/autojump/autojump.fish; end
+# begin
+#     set --local AUTOJUMP_PATH $HOME/.autojump/share/autojump/autojump.fish
+#     if test -e $AUTOJUMP_PATH
+#         source $AUTOJUMP_PATH
+#     end
+# end
 
 set -x GOPATH $HOME/go
 #set -x GOROOT /usr/local/Cellar/go/1.7.3
@@ -19,10 +19,12 @@ set -x DATASTORE_EMULATOR_HOST localhost:8432
 set -x DATASTORE_PROJECT_ID pristine-abacus-90205
 set -x NVIMRC $HOME/.config/nvim/init.vim
 
+
 set tacklebox_path ~/.tackle
 set tacklebox_modules virtualfish virtualhooks
 set tacklebox_plugins extract grc pip python up
 set tacklebox_theme entropy
+source ~/.tacklebox/tacklebox.fish
 
 #set -x VIM /usr/share/vim
 #set -x VIMRUNTIME /usr/share/vim/runtime
@@ -31,7 +33,7 @@ set tacklebox_theme entropy
 #. $HOME/.fishmarks/marks.fish
 
 alias vi "nvim"
-alias node "node --harmony-async-await"
+# alias node "node --harmony-async-await"
 
 
 # function vi
@@ -45,12 +47,6 @@ end
 function gclogin
 	docker login -u _token -p (gcloud auth print-access-token) https://asia.gcr.io
 end
-
-# The next line updates PATH for the Google Cloud SDK.
-bass source '/Users/ben/.gcloud/path.bash.inc'
-
-# The next line enables shell command completion for gcloud.
-bass source '/Users/ben/.gcloud/completion.bash.inc'
 
 eval (hub alias -s)
 
@@ -99,3 +95,27 @@ function demu_datastore
   set --erase DATASTORE_EMULATOR_HOST 
   set --erase DATASTORE_PROJECT_ID
 end
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ben/.gcloud/path.fish.inc' ]; if type source > /dev/null; source '/Users/ben/.gcloud/path.fish.inc'; else; . '/Users/ben/.gcloud/path.fish.inc'; end; end
+
+nvm use default
+
+# Paths to your tackle
+# set tacklebox_path ~/.tackle ~/.tacklebox
+
+# Theme
+#set tacklebox_theme entropy
+
+# Which modules would you like to load? (modules can be found in ~/.tackle/modules/*)
+# Custom modules may be added to ~/.tacklebox/modules/
+# Example format: set tacklebox_modules virtualfish virtualhooks
+
+# Which plugins would you like to enable? (plugins can be found in ~/.tackle/plugins/*)
+# Custom plugins may be added to ~/.tacklebox/plugins/
+# Example format: set tacklebox_plugins python extract
+
+# Load Tacklebox configuration
+# . ~/.tacklebox/tacklebox.fish
+# source ~/.tacklebox/tacklebox.fish
