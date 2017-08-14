@@ -19,13 +19,15 @@
   Plug 'Valloric/YouCompleteMe'
 
   " Using a non-master branch
-  Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+  " Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
   " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-  Plug 'fatih/vim-go', { 'tag': '*' }
+  " Plug 'fatih/vim-go'
+  " Plug 'fatih/vim-go', { 'tag': '*' }
 
   " Plugin options
-  Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+  Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+  " Plug 'nsf/gocode', { 'rtp': 'vim' }
 
   " Plugin outside ~/.vim/plugged with post-update hook
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -33,7 +35,7 @@
   " ctrlp"
   Plug 'kien/ctrlp.vim'
 
-  Plug 'roxma/SimpleAutoComplPop'
+  " Plug 'roxma/SimpleAutoComplPop'
 
   Plug 'https://github.com/vim-airline/vim-airline'
   " Plug 'bling/vim-airline'
@@ -54,8 +56,8 @@
   Plug 'tpope/vim-commentary'
   " Plug 'vim-syntastic/syntastic'
 
-  Plug 'https://github.com/lbeeon/ale.git'
-  " Plug 'w0rp/ale'
+  " Plug 'https://github.com/lbeeon/ale.git'
+  Plug 'w0rp/ale'
   " Add plugins to &runtimepath
   Plug 'vimwiki/vimwiki'
   call plug#end()
@@ -76,8 +78,8 @@
   nnoremap <C-e> :NERDTreeToggle<CR>
   nnoremap <D-s> :w<CR>
   nnoremap fc :foldclose<CR>
-  nnoremap <Leader>ec :e $NVIMRC<CR>
-  nnoremap <Leader>rc :so %<CR>
+  nnoremap <silent><Leader>ec :e $NVIMRC<CR>
+  nnoremap <silent><Leader>rc :so %<CR>
   inoremap jj <esc>
   noremap <C-j> <C-w>j
   noremap <C-h> <C-w>h
@@ -91,6 +93,7 @@
   nnoremap <C-w><C-q> <C-W>100j:resize 12<CR>i
   tnoremap <C-q><C-w> <C-\><C-n>:resize 1<CR><C-W>100k
   tnoremap <ESC> <C-\><C-n>:resize 3<CR><C-W>100k
+  tnoremap <ESC><ESC> <C-\><C-n>
   " noremap <Leader><ESC> <C-W>100j:resize 30<CR>i
   noremap <silent><Leader><TAB> :<C-U>call ExpendTerm()<CR>
   noremap <silent><Leader><ESC> :<C-U>call ExpendTerm()<CR>
@@ -201,13 +204,13 @@ set autoread
   " buffer for completion `<C-x><C-n>`
   " 2. When the '.' is pressed, use smarter omnicomplete `<C-x><C-o>`, this
   " works well with the vim-go plugin
-  autocmd FileType go call sacp#enableForThisBuffer({ "matches": [
-        \ { '=~': '\v[a-zA-Z]{4}$' , 'feedkeys': "\<C-x>\<C-n>"} ,
-        \ { '=~': '\.$'            , 'feedkeys': "\<C-x>\<C-o>", "ignoreCompletionMode":1} ,
-        \ ]
-        \ })
+  " autocmd FileType go call sacp#enableForThisBuffer({ "matches": [
+  "       \ { '=~': '\v[a-zA-Z]{4}$' , 'feedkeys': "\<C-x>\<C-n>"} ,
+  "       \ { '=~': '\.$'            , 'feedkeys': "\<C-x>\<C-o>", "ignoreCompletionMode":1} ,
+  "       \ ]
+  "       \ })
 
-" }}}
+" " }}}
 
 
 let g:python_host_prog = '/usr/local/bin/python2'
@@ -219,14 +222,14 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 " let g:javascript_plugin_flow = 1
 
 " syntastic {{{
-  let g:syntastic_check_on_open = 1
+  " let g:syntastic_check_on_open = 1
   " let g:syntastic_check_on_wq = 0
   " let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 1
-  let g:syntastic_aggregate_errors = 1
+  " let g:syntastic_auto_loc_list = 1
+  " let g:syntastic_aggregate_errors = 1
   " let g:syntastic_javascript_standard_exec = 'happiness'
   " let g:syntastic_javascript_standard_generic = 1
-  let g:syntastic_go_checkers = ['gofmt', 'golint', 'govet', 'errcheck', 'go']
+  " let g:syntastic_go_checkers = ['gofmt', 'golint', 'govet', 'errcheck', 'go']
   " let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
   " let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
 
