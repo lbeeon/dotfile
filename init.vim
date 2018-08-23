@@ -22,7 +22,7 @@
   " Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
   " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-  " Plug 'fatih/vim-go'
+  Plug 'fatih/vim-go'
   " Plug 'fatih/vim-go', { 'tag': '*' }
 
   " Plugin options
@@ -60,6 +60,10 @@
   Plug 'w0rp/ale'
   " Add plugins to &runtimepath
   Plug 'vimwiki/vimwiki'
+
+  Plug 'davidhalter/jedi-vim'
+
+  Plug 'elzr/vim-json'
   call plug#end()
 " }}}
 
@@ -111,6 +115,7 @@
   vnoremap <Leader>// "zy:SideSearch <C-R>z<CR>
   nnoremap <Leader>// :SideSearch 
   vnoremap // "zy/<C-R>z<CR>
+  vnoremap pp "_dP<ESC>"
 
   cnoremap <C-b> <Left>
   cnoremap <C-f> <Right>
@@ -118,6 +123,7 @@
 
 "default {{{
   syntax on
+  set mouse=a
   set t_Co=256
   set background=dark
   colorscheme atom-dark
@@ -134,13 +140,16 @@
   " set foldmethod=indent
   set foldmethod=marker
   " set nofoldenable
-  set guifont=Consolas:h14
+  " set guifont=Consolas:h36
+  set guifont=Monaco:h10
   set splitright
   set splitbelow
 
   "share clipboard with system"
   set clipboard+=unnamedplus
-
+  if has('nvim-0.1.5')        " True color in neovim wasn't added until 0.1.5
+      set termguicolors
+  endif
   "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
   "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
   "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
@@ -152,9 +161,9 @@
     "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
     "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
     " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-    if (has("termguicolors"))
-      set termguicolors
-    endif
+    " if (has("termguicolors"))
+    "   set termguicolors
+    " endif
   endif
 " }}}
 
@@ -177,9 +186,14 @@
 
 " let g:syntastic_javascript_checkers = ['standard']
 autocmd bufwritepost *.js silent !standard --fix %
+au Filetype json setlocal foldmethod=syntax
 set autoread
 
+au Filetype yml setlocal foldmethod=indent
+au Filetype yaml setlocal foldmethod=indent
+
 " golang {{{
+"
   let g:go_highlight_functions = 1
   let g:go_highlight_methods = 1
   let g:go_highlight_fields = 1
@@ -199,6 +213,7 @@ set autoread
   let g:ale_linters = {
   \   'go': ['go build', 'gofmt', 'go vet', 'staticcheck'],
   \}
+  set completeopt-=preview
   "['go build', 'gofmt', 'golint', 'gometalinter', 'gosimple', 'go vet', 'staticcheck']
   " 1. variables are all defined in current scope, use keyword from current
   " buffer for completion `<C-x><C-n>`
@@ -213,6 +228,7 @@ set autoread
 " " }}}
 
 
+let g:tagbar_ctags_bin = '/usr/local/Cellar/ctags/5.8_1/bin/ctags'
 let g:python_host_prog = '/usr/local/bin/python2'
 let g:python3_host_prog = '/usr/local/bin/python3'
 
@@ -258,4 +274,3 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 
   " Enable bookmarks
   let NERDTreeShowBookmarks=1
-" }}}

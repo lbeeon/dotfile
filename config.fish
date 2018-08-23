@@ -1,6 +1,9 @@
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+set -g -x PATH /Users/ben_wang/Library/Python/2.7/bin $PATH
+set -g -x PATH /usr/local/lib/python3.6/site-packages $PATH
 set -g -x PATH /usr/local/bin $PATH
 # set -x PATH /usr/local/opt/gnupg/libexec/gpgbin $PATH
-if test -f /Users/ben/.autojump/share/autojump/autojump.fish; . /Users/ben/.autojump/share/autojump/autojump.fish; end
+  [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
 # begin
 #     set --local AUTOJUMP_PATH $HOME/.autojump/share/autojump/autojump.fish
 #     if test -e $AUTOJUMP_PATH
@@ -9,8 +12,6 @@ if test -f /Users/ben/.autojump/share/autojump/autojump.fish; . /Users/ben/.auto
 # end
 
 set -x GOPATH $HOME/go
-#set -x GOROOT /usr/local/Cellar/go/1.7.3
-#set -x PATH $GOPATH/bin $GOROOT/bin $PATH
 set -x PATH $GOPATH/bin $PATH
 set -x GOOGLE_APPLICATION_CREDENTIALS /Users/ben/.secret/credential.json
 set -x GOOGLE_PROJECT_ID pristine-abacus-90205
@@ -42,6 +43,23 @@ alias vi "nvim"
 
 function gits
         git status
+end
+
+function gitcc
+  git branch -D test; git branch -D stag; git branch -D prod
+end
+
+function gitccr
+  git push origin -d test; git push origin -d stag; git push origin -d prod
+end
+
+function gitt
+  git branch -D test; git checkout -b 'test'
+end
+
+function gitci
+  git push origin -d test
+  git push origin test
 end
 
 function gclogin
@@ -100,8 +118,6 @@ end
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/ben/.gcloud/path.fish.inc' ]; if type source > /dev/null; source '/Users/ben/.gcloud/path.fish.inc'; else; . '/Users/ben/.gcloud/path.fish.inc'; end; end
 
-nvm use default
-
 # Paths to your tackle
 # set tacklebox_path ~/.tackle ~/.tacklebox
 
@@ -119,3 +135,13 @@ nvm use default
 # Load Tacklebox configuration
 # . ~/.tacklebox/tacklebox.fish
 # source ~/.tacklebox/tacklebox.fish
+
+# Paths to your tackle
+set tacklebox_path ~/.tackle ~/.tacklebox
+
+test -s /Users/ben_wang/.nvm-fish/nvm.fish; and source /Users/ben_wang/.nvm-fish/nvm.fish
+
+nvm use default
+set -g fish_user_paths "/usr/local/opt/icu4c/bin" $fish_user_paths
+set -g fish_user_paths "/usr/local/opt/icu4c/sbin" $fish_user_paths
+set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
