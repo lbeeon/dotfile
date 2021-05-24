@@ -5,6 +5,8 @@
 
   " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
   Plug 'junegunn/vim-easy-align'
+  Plug 'derekwyatt/vim-scala'
+  Plug 'Vimjas/vim-python-pep8-indent'
 
   " Any valid git URL is allowed
   " Plug 'https://github.com/junegunn/vim-github-dashboard.git'
@@ -19,7 +21,7 @@
   Plug 'Valloric/YouCompleteMe'
 
   " Using a non-master branch
-  " Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+  Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
   " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
   Plug 'fatih/vim-go'
@@ -30,7 +32,8 @@
   " Plug 'nsf/gocode', { 'rtp': 'vim' }
 
   " Plugin outside ~/.vim/plugged with post-update hook
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf'
+  " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
   " ctrlp"
   Plug 'kien/ctrlp.vim'
@@ -55,22 +58,30 @@
   Plug 'majutsushi/tagbar'
 
   Plug 'tpope/vim-commentary'
-  " Plug 'vim-syntastic/syntastic'
+  Plug 'vim-syntastic/syntastic'
 
   " Plug 'https://github.com/lbeeon/ale.git'
-  Plug 'w0rp/ale'
+  " Plug 'w0rp/ale'
   " Add plugins to &runtimepath
   Plug 'vimwiki/vimwiki'
 
   Plug 'davidhalter/jedi-vim'
 
   Plug 'elzr/vim-json'
+  Plug 'fisadev/vim-isort'
+  Plug 'dense-analysis/ale'
+
+
+  " Plug 'zivyangll/git-blame.vim'
   call plug#end()
 " }}}
 
 "keymap {{{
   let mapleader="\<SPACE>"
   iabbrev @@ lbeeon.wang@gmail.com
+
+  " git blame
+  " nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
  
   inoremap ` ``<ESC>i
   inoremap ( ()<ESC>i
@@ -138,7 +149,7 @@
   set nu
   set ai
   set cursorline
-  set tabstop=2
+  set tabstop=4
   set shiftwidth=2
   set expandtab
   " set foldmethod=syntax
@@ -198,6 +209,7 @@ set autoread
 
 au Filetype yml setlocal foldmethod=indent
 au Filetype yaml setlocal foldmethod=indent
+au BufNewFile,BufRead Jenkinsfile setf groovy
 
 " golang {{{
 "
@@ -236,8 +248,10 @@ au Filetype yaml setlocal foldmethod=indent
 
 
 let g:tagbar_ctags_bin = '/usr/local/Cellar/ctags/5.8_1/bin/ctags'
-let g:python_host_prog = '/usr/local/bin/python2'
-let g:python3_host_prog = '/usr/local/bin/python3'
+"let g:python_host_prog = '/usr/local/bin/python2'
+let g:python3_host_prog = '/usr/local/opt/python/libexec/bin/python'
+
+" let g:UltiSnipsExpandTrigger="<Enter>"
 
 " javascript setting"
 " let g:javascript_plugin_jsdoc = 1
@@ -281,3 +295,11 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 
   " Enable bookmarks
   let NERDTreeShowBookmarks=1
+
+let g:ale_python_flake8_options= '--ignore E501,E402,E265,E722,E741,W503'
+" Check Python files with flake8 and pylint.
+let b:ale_linters = ['flake8', 'pylint']
+" Fix Python files with autopep8 and yapf.
+" let b:ale_fixers = ['autopep8', 'yapf']
+" Disable warnings about trailing whitespace for Python files.
+let b:ale_warn_about_trailing_whitespace = 0
